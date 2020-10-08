@@ -4,8 +4,21 @@
         <input type="text" v-model="input1" />
         <button type="button" @click="getData">Get</button>
         <button type="button" @click="setData">Set</button>
+
+        <select class="form-control" v-model="region" @change="changeRegion">
+            <option :key="i" :value="d.v" v-for="(d,i) in options">{{d.t}}</option>
+        </select>
+
+        <table class="table table-bordered" v-show="tableShow">
+            <tr :key="i" v-for="(d,i) in options">
+                <td>{{d.v}}</td>
+                <td>{{d.t}}</td>
+            </tr>
+        </table>
     </div>
 </template>
+
+
 <script>
 export default {
     data() {
@@ -13,6 +26,13 @@ export default {
             title: "누누누누",
             title2: "Incheon",
             input1: "abc",
+            options : [
+                {v:"S",t:"Seoul"},
+                {v:"J",t:"Jeju"},
+                {v:"W",t:"Wonju"}
+            ],
+            region: "J",
+            tableShow: false
         };
     },
     methods: {
@@ -21,6 +41,14 @@ export default {
         },
         setData() {
             this.input1 = "12345"
+        },
+        changeRegion() {
+            alert(this.region)
+        }
+    },
+    watch: {
+        input1() {
+            console.log(this.input1)
         }
     },
     beforeCreate() {
